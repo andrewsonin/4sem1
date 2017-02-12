@@ -31,10 +31,10 @@ class Vernam:
         return ''.join(text_list)
 
 coder = Vernam(open('vernam_input.txt', 'r', encoding='utf8').read())
-print('Key:', coder.return_key())
 coded = coder.encode()
-print('Coded view:', coded)
 decoded = coder.decode(coded)
-print('Decoded:', coder.decode(coded))
 output = open('vernam_output.txt', 'w', encoding='utf8')
 output.write('Key:\n' + coder.return_key() + '\n\nCoded view:\n' + coded + '\n\nDecoded view:\n' + decoded)
+print('Key:\n' + coder.return_key() + '\n')
+print('Coded view:\n' + coded + '\n')
+print('Decoded:\n' + coder.decode(coded) + '\n')
