@@ -1,13 +1,13 @@
 class Vernam:
-    alphabet = list(map(str, open('vernam_alphabet.txt', 'r', encoding='utf8').read()))
-    alphabet_dict = {index: ch for ch, index in enumerate(alphabet)}
-    alphabet_dict_reversed = {ch: index for ch, index in enumerate(alphabet)}
+    alphabet = list(enumerate(map(str, open('vernam_alphabet.txt', 'r', encoding='utf8').read()), 10))
+    alphabet_dict = {index: ch for ch, index in alphabet}
+    alphabet_dict.update({ch: index for ch, index in alphabet})
 
     def __init__(self, text):
         from random import choice
         self.text = text
         self.len_keyword_byte = len(self.text)
-        self.keyword = ''.join([choice(self.alphabet) for i in range(self.len_keyword_byte)])
+        self.keyword = ''.join([choice(self.alphabet)[1] for i in range(self.len_keyword_byte)])
         self.keyword_byte = self.byte(self.keyword)
 
     def return_key(self):
@@ -27,7 +27,7 @@ class Vernam:
         text_list = []
         for i in range(0, len(text), 3):
             byte = int(text[i:i+3]) ^ self.keyword_byte[i//3 % self.len_keyword_byte]
-            text_list.append(self.alphabet_dict_reversed.get(byte))
+            text_list.append(self.alphabet_dict.get(byte))
         return ''.join(text_list)
 
 coder = Vernam(open('vernam_input.txt', 'r', encoding='utf8').read())
