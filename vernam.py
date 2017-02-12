@@ -26,7 +26,7 @@ class Vernam:
     def decode(self, text):
         text_list = []
         for i in range(0, len(text), 3):
-            byte = int(text[i:i+3]) ^ self.keyword_byte_list[i // 3 % self.keyword_len]
+            byte = int(text[i:i+3]) ^ self.keyword_byte_list[i//3 % self.keyword_len]
             text_list.append(self.alphabet_dict.get(byte))
         return ''.join(text_list)
 
