@@ -19,8 +19,8 @@ class Vernam:
     def encode(self):
         text_byte_list = self.byte(self.text)
         for i in range(len(text_byte_list)):
-            non_zero_added_coded_letter = str(text_byte_list[i] ^ self.keyword_byte_list[i % self.keyword_len])
-            text_byte_list[i] = '0'*(3 - len(non_zero_added_coded_letter)) + non_zero_added_coded_letter
+            non_zero_coded_letter = str(text_byte_list[i] ^ self.keyword_byte_list[i % self.keyword_len])
+            text_byte_list[i] = '0'*(3 - len(non_zero_coded_letter)) + non_zero_coded_letter
         return ''.join(text_byte_list)
 
     def decode(self, text):
