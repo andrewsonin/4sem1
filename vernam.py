@@ -6,9 +6,9 @@ class Vernam:
     def __init__(self, text):
         from random import choice
         self.text = text
-        self.len_keyword_byte = len(self.text)
-        self.keyword = ''.join([choice(self.alphabet)[1] for i in range(self.len_keyword_byte)])
-        self.keyword_byte = self.byte(self.keyword)
+        self.keyword_len = len(self.text)
+        self.keyword = ''.join([choice(self.alphabet)[1] for i in range(self.keyword_len)])
+        self.keyword_byte_list = self.byte(self.keyword)
 
     def return_key(self):
         return self.keyword
@@ -19,14 +19,14 @@ class Vernam:
     def encode(self):
         text_byte_list = self.byte(self.text)
         for i in range(len(text_byte_list)):
-            non_zero_added_coded_letter = str(text_byte_list[i] ^ self.keyword_byte[i % self.len_keyword_byte])
+            non_zero_added_coded_letter = str(text_byte_list[i] ^ self.keyword_byte_list[i % self.keyword_len])
             text_byte_list[i] = '0'*(3 - len(non_zero_added_coded_letter)) + non_zero_added_coded_letter
         return ''.join(text_byte_list)
 
     def decode(self, text):
         text_list = []
         for i in range(0, len(text), 3):
-            byte = int(text[i:i+3]) ^ self.keyword_byte[i//3 % self.len_keyword_byte]
+            byte = int(text[i:i+3]) ^ self.keyword_byte_list[i // 3 % self.keyword_len]
             text_list.append(self.alphabet_dict.get(byte))
         return ''.join(text_list)
 
